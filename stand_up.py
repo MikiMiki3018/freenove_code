@@ -5,22 +5,20 @@ import time
 def stand_up():
     bot = Control()
 
-    print("Moving to neutral pose...")
-    bot.move_position(0, 0, 0)
+    print("Starting corrected stand-up sequence...")
     time.sleep(1)
 
-    print("Starting stand-up sequence...")
 
-    start_z = 0       # neutral height
-    end_z   = -80     # how high body lifts (adjust between -60 and -100)
-    steps   = 20
+    start_z = -80    # crouched
+    end_z   = -30    # normal standing height (higher body)
 
-    for i in range(steps + 1):
-        z = start_z + (end_z - start_z) * (i / steps)
+    steps = 25
+    for step in range(steps):
+        z = start_z + (end_z - start_z) * (step / steps)
         bot.move_position(0, 0, int(z))
         time.sleep(0.05)
 
-    print("Hexapod is now standing.")
+    print("Hexapod should now be standing at normal height.")
 
 if __name__ == "__main__":
     stand_up()
